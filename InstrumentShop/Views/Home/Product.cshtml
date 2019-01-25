@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Back button -->
+
+<div class="filter">
+    <a href="~/Home/Index"><div class="btn btn-active"><i class="arrow-left"></i>All instruments</div></a>
+</div>
+
+<!-- Product info -->
+
+<div class="product-info-div">
+    <div>
+        <div class="product-img add-margin-top"><img src="~/Content/img/@(Model.ID)_small.jpg" /></div>
+    </div>
+    <div>
+
+        <h2>@Model.ProductName</h2>
+
+        <br />
+
+        <p>@Model.Description</p>
+
+        <br />
+
+        <p><b>Manufacturer</b>: <a class="blue-link" href="@Model.ManufacturerWebsite">@Model.ManufacturerWebsite</a></p>
+        <p><b>Released</b>: @Model.ReleaseYear</p>
+
+        <!-- Subclass specific properties -->
+
+        @if (Model is InstrumentShop.Models.Synthesizer)
+        {
+            <p><b>Keys</b>: @Model.NumberOfKeys</p>
+
+            if (Model.MIDI == true)
+            {
+                ViewBag.MIDI = "Yes";
+            }
+            else
+            {
+                ViewBag.MIDI = "No";
+            }
+
+            <p><b>MIDI</b>: @ViewBag.MIDI</p>
+        }
+
+        @if (Model is InstrumentShop.Models.Bass)
+        {
+            <p><b>Strings</b>: @Model.NumberOfStrings</p>
+
+            if (Model.Electric == true)
+            {
+                ViewBag.Electric = "Electric bass";
+            }
+            else
+            {
+                ViewBag.Electric = "Acoustic bass";
+            }
+
+            <p><b>Type</b>: @ViewBag.Electric</p>
+        }
+
+        @if (Model is InstrumentShop.Models.Guitar)
+        {
+            <p><b>String type</b>: @Model.StringType</p>
+
+            if (Model.Cutaway == true)
+            {
+                ViewBag.Cutaway = "Yes";
+            }
+            else
+            {
+                ViewBag.Cutaway = "No";
+            }
+
+            <p><b>Cutaway</b>: @ViewBag.Cutaway</p>
+        }
+
+        <!-- Price, In stock information & AddToCart-button -->
+
+        <p class="product-price-large">@Model.Price.ToString("#,##0.00") €</p>
+
+        @if (Model.Inventory > 0 && Model.Inventory <= 10)
+        {
+            <p>In stock: <b>1-10</b></p>
+        }
+        @if (Model.Inventory > 10)
+        {
+            <p>In stock: <b>10+</b></p>
+        }
+        @if (Model.Inventory == 0)
+        {
+            <p>In stock: <span class="red-text"><b>Sold out</b></span></p>
+        }
+
+
+        @if (Session["UserID"] is int)
+        {
+            <a href="~/Cart/AddToCart/@Model.ID"><div class="btn addtocart cart-margin">Add to cart</div></a>
+        }
+        else
+        {
+            <div class="btn addtocart cart-margin" onclick="alert('You need to be logged in to add an item to your shopping cart.')">Add to cart</div>
+        }
+
+    </div>
+</div>

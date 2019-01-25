@@ -1,0 +1,63 @@
+﻿<!-- HEADER with logo, account-menu (with log in-form) & shopping cart icon -->
+
+<header>
+    <div class="logo"><a href="~/Home/Index">Instrument Shop</a></div>
+
+    <!-- Show name and "Log out" if logged in, "Create Account" and "Log in" if not -->
+
+    <div class="menu">
+
+        @if (Session["UserID"] is int)
+        {
+            <p><b>Logged in as <span class="red-text">@Session["UserFirstName"]</span> </b><a href="~/Account/LogOut"><span class="gray-link"><b>Log out</b></span></a></p>
+        }
+        else
+        {
+            <a class="menu-item" href="~/Account/Register">Create account</a>
+            <a class="menu-item" href="#">
+                <div class="dropdown">
+                    <span>Log in</span>
+                    <div class="dropdown-content">
+                        <form method="post">
+                            <div class="form-container">
+                                <div class="input-label-div black-text">E-mail</div>
+                                <div class="input-div">
+                                    <input name="email" type="email">
+                                </div>
+
+                                <div class="input-label-div black-text">Password</div>
+                                <div class="input-div">
+                                    <input name="password" type="password">
+                                </div>
+                                <div></div>
+                                <div><input type="submit" formaction="@Url.Action("Index", "Account")" /></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </a>
+        }
+
+    </div>
+
+    <!-- Shopping cart icon -->
+
+    <div class="menu-cart">
+        @if (Session["UserID"] is int)
+        {
+            <a href="~/Cart/ShoppingCart"><img id="shopping-cart-svg" src="~/Content/img/shoppingcart.svg" /></a>
+        }
+        else
+        {
+            <a href="#"><img id="shopping-cart-svg" src="~/Content/img/shoppingcart.svg" onclick="alert('You need to be logged in to view your shopping cart.')" /></a>
+        }
+
+        <!-- Number of items in cart -->
+
+        @if (Session["CartCount"] is int && (int)Session["CartCount"] != 0)
+        {
+            <span class="menu-cart-count">@Session["CartCount"]</span>
+        }
+
+    </div>
+</header>

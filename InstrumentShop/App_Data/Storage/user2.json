@@ -1,0 +1,13 @@
+{
+  "$type": "InstrumentShop.Models.UserData, InstrumentShop",
+  "ID": 2,
+  "Email": "jag@jagge.nu",
+  "Password": "hej",
+  "FirstName": "Jagge",
+  "LastName": "Jo",
+  "Address": "Gatan 5",
+  "PostalCode": "54343",
+  "PostalAddress": "Jorå",
+  "Country": "Sweden",
+  "ShoppingCartList": []
+}

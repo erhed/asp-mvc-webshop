@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Back button -->
+
+<div class="filter">
+    <a href="~/Home/Index"><div class="btn btn-active"><i class="arrow-left"></i>All instruments</div></a>
+</div>
+
+<!-- Title -->
+
+<div class="center">
+    <h3>Create account</h3>
+</div>
+
+<!-- Register form -->
+
+<form method="post">
+
+    <div class="form-container">
+
+        <div class="br-div"></div>
+        <div class="br-div"></div>
+
+        <div class="br-div"></div>
+        <div class="br-div"></div>
+
+        <div class="input-label-div">E-mail</div>
+        <div class="input-div">
+            <input name="Email" type="email">
+        </div>
+
+        <div class="input-label-div">Password</div>
+        <div class="input-div">
+            <input name="Password" type="password">
+        </div>
+
+        <div class="input-label-div">Confirm password</div>
+        <div class="input-div">
+            <input name="ConfirmPassword" type="password">
+        </div>
+
+        <div class="br-div"></div>
+        <div class="br-div"></div>
+
+        <div class="input-label-div">First name</div>
+        <div class="input-div">
+            <input name="FirstName" type="text">
+        </div>
+
+        <div class="input-label-div">Last name</div>
+        <div class="input-div">
+            <input name="LastName" type="text">
+        </div>
+
+        <div class="br-div"></div>
+        <div class="br-div"></div>
+
+        <div class="input-label-div">Address</div>
+        <div class="input-div">
+            <input name="Address" type="text">
+        </div>
+
+        <div class="input-label-div">Postal code</div>
+        <div class="input-div">
+            <input name="PostalCode" type="number" maxlength="5">
+        </div>
+
+        <div class="input-label-div">Postal address</div>
+        <div class="input-div">
+            <input name="PostalAddress" type="text">
+        </div>
+
+        <div class="input-label-div">Country</div>
+        <div class="input-div">
+            <input name="Country" type="text">
+        </div>
+
+        <div class="br-div"></div>
+        <div class="br-div"></div>
+
+    </div>
+
+    <br />
+
+    <div class="center">
+        <input class="btn addtocart submit" type="submit" value="Submit" />
+    </div>
+
+</form>

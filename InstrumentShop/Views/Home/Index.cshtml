@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- CSS active category -->
+
+@if (Model.Category == "all")
+{
+    ViewBag.CategoryAll = "btn-active";
+}
+@if (Model.Category == "synthesizers")
+{
+    ViewBag.CategorySynthesizers = "btn-active";
+}
+@if (Model.Category == "bass")
+{
+    ViewBag.CategoryBass = "btn-active";
+}
+@if (Model.Category == "guitars")
+{
+    ViewBag.CategoryGuitars = "btn-active";
+}
+
+<!-- Category filter menu -->
+
+<div class="filter">
+    <a href="~/Home/Index/?category=all"><div class="btn @ViewBag.CategoryAll">All instruments</div></a>
+    <a href="~/Home/Index/?category=synthesizers"><div class="btn @ViewBag.CategorySynthesizers">Synthesizers</div></a>
+    <a href="~/Home/Index/?category=bass"><div class="btn @ViewBag.CategoryBass">Bass</div></a>
+    <a href="~/Home/Index/?category=guitars"><div class="btn @ViewBag.CategoryGuitars">Guitars</div></a>
+</div>
+
+<!-- Product cards -->
+
+<div class="products">
+
+    @foreach (var instrument in Model.ProductList)
+    {
+
+        <div class="product">
+            <a href="~/Home/Product/@instrument.ID">
+                <div class="product-img"><img src="~/Content/img/@(instrument.ID)_small.jpg" /></div>
+            </a>
+            <div class="product-info">
+                <a href="~/Home/Product/@instrument.ID">
+                    <div class="product-card-left">
+                        <div class="product-title-small">@instrument.ProductName</div>
+
+
+                        @if (instrument is InstrumentShop.Models.Synthesizer)
+                        {
+                            ViewBag.Category = "Synthesizer";
+                        }
+
+                        @if (instrument is InstrumentShop.Models.Bass)
+                        {
+                            ViewBag.Category = "Bass";
+                        }
+
+                        @if (instrument is InstrumentShop.Models.Guitar)
+                        {
+                            ViewBag.Category = "Guitar";
+                        }
+
+                        <div class="product-category-small">@ViewBag.Category</div>
+                    </div>
+                </a>
+
+                <!-- Price and AddToCart-button -->
+
+                <div class="product-card-right">
+                    <div class="product-price-small">@instrument.Price.ToString("#,##0.00") €</div>
+
+                    @if (Session["UserID"] is int)
+                    {
+                        <a href="~/Cart/AddToCart/@instrument.ID"><div class="btn addtocart">Add to cart</div></a>
+                    }
+                    else
+                    {
+                        <div class="btn addtocart" onclick="alert('You need to be logged in to add an item to your shopping cart.')">Add to cart</div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    }
+
+</div>
+

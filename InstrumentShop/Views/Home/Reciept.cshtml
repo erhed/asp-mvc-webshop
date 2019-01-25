@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Reciept";
+    ViewBag.TotalPrice = 0;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Back button -->
+
+<div class="filter">
+    <a href="~/Home/Index"><div class="btn btn-active"><i class="arrow-left"></i>All instruments</div></a>
+</div>
+
+<!-- Title -->
+
+<div class="center">
+    <h3>Your order has been placed!</h3>
+</div>
+
+<!-- Products bought -->
+
+<div class="cart-table-wrapper">
+
+    @if (Model.UserData.ShoppingCartList != null)
+    {
+        <table class="cart-table" cellspacing="0">
+            <tr>
+                <th class="cart-th th-product">Product</th>
+                <th class="cart-th th-qty">Qty</th>
+                <th class="cart-th th-price">Price</th>
+            </tr>
+            @foreach (var cartitem in Model.UserData.ShoppingCartList)
+            {
+                foreach (var instrument in Model.ProductList)
+                {
+                    if (cartitem.ProductID == instrument.ID)
+                    {
+                        ViewBag.TotalPrice += instrument.Price * cartitem.Quantity;
+                        <tr class="cart-tr">
+                            <td class="cart-td">@instrument.ProductName</td>
+                            <td class="cart-td td-qty">@cartitem.Quantity</td>
+                            <td class="cart-td td-price">@instrument.Price.ToString("#,##0.00") €</td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+        <div class="cart-total"><span class="product-price-cart"> @ViewBag.TotalPrice.ToString("#,##0.00") €</span></div>
+    }
+
+</div>
+
+<!-- Delivery address -->
+
+<div class="cart-address">
+    <div><b>Delivery address:</b></div>
+    <br />
+    <div>@Model.UserData.FirstName @Model.UserData.LastName</div>
+    <div>@Model.UserData.Address</div>
+    <div>@Model.UserData.PostalCode @Model.UserData.PostalAddress</div>
+    <div>@Model.UserData.Country</div>
+</div>
+
+<br />
+<br />
+<div class="center">A reciept has been sent to: <b>@Model.UserData.Email</b></div>
+
